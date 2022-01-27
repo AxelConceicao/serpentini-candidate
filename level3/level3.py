@@ -92,8 +92,14 @@ def main(args):
         })
         deals += _user._commissions
 
-    print(deals)
-    print(json.dumps({'commissions': commissions}))
+    # deals.sort(key=lambda x: x['close_date'])
+    output = {
+        'commissions': commissions,
+        'deals': [{'id': deal['id'], 'commission': deal['commission']} for deal in deals]
+
+    }
+    with open('data/output.json', 'w') as output_file:
+        json.dump(output, output_file)
 
 
 if __name__ == "__main__":
